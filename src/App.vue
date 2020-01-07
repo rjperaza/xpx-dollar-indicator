@@ -1,32 +1,43 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <!-- Toolbar -->
+    <v-app-bar app flat dense>
+      <img
+        class="mr-3"
+        :src="require('@/assets/logo-white.png')"
+        alt="logo"
+        height="35"
+      />
+    </v-app-bar>
+
+    <v-content>
+      <v-container>
+        <div class="text-center mt-5">
+          <span class="display-1 font-weight-medium">XPX DOLLAR INDICATOR</span>
+        </div>
+        <router-view></router-view>
+        <v-dialog v-model="loading.state" hide-overlay persistent width="300">
+          <v-card :color="loading.colour" dark>
+            <v-card-text class="pt-4">
+              {{loading.title}}
+              <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import { mapState } from 'vuex'
+export default {
+  name: 'App',
+  data: () => ({
+    //
+  }),
+  computed: {
+    ...mapState(['loading'])
+  }
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
