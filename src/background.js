@@ -1,11 +1,13 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, Menu } from 'electron'
 import {
   createProtocol,
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
+Menu.setApplicationMenu(false)
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -22,10 +24,14 @@ function createWindow() {
     },
     // frame: false,
     transparent: true,
-    resizable: false
+    resizable: false,
+    minimizable: true,
+    maximizable: true,
+    closable: true
   })
   
-  win.setMenu(null)
+  win.removeMenu()
+  win.setMenuBarVisibility(false)
 
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
